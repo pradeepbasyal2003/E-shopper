@@ -30,7 +30,8 @@ class Ad(models.Model):
 
 class Brand(models.Model):
     name = models.CharField(max_length = 200)
-    image = models.ImageField(upload_to='media')
+    image = models.ImageField(upload_to='media' , blank=True)
+    numbers_of_products = models.IntegerField(default = 1)
 
     def __str__(self):
         return self.name
