@@ -39,3 +39,16 @@ class CategoryView(Base):
 
 
         return render(request,"category.html",self.views)
+
+class BrandView(Base):
+#slug use vako xa tesaile slug ni pass gareko
+#slug is used for unique link only it has no use in database
+#database ma category ko id products table ma stored hunxa cause of foreign key which can be seen below
+    def get(self,request,slug):
+        brand_id = Brand.objects.get(slug = slug).id # slug = slug le index.html ma category for loop bata chaleko xa tellai execute garxa
+        self.views['brand_products'] = Product.objects.filter(brand_id = brand_id)
+        self.views['categories'] = Category.objects.all()
+        self.views['brands'] = Brand.objects.all()
+
+
+        return render(request,"brands.html",self.views)

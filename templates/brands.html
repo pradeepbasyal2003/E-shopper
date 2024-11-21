@@ -29,7 +29,7 @@
 							<div class="brands-name">
 								<ul class="nav nav-pills nav-stacked">
 									{%for brand in brands %}
-									<li><a href="#"> <span class="pull-right">({{brand.numbers_of_products}})</span>{{brand.name}}</a></li>
+									<li><a href="/brand/{{brand.slug}}"> <span class="pull-right">({{brand.numbers_of_products}})</span>{{brand.name}}</a></li>
 									{%endfor%}
 								</ul>
 							</div>
@@ -53,20 +53,20 @@
 				<div class="col-sm-9 padding-right">
 					<div class="features_items"><!--features_items-->
 						<h2 class="title text-center">Features Items</h2>
-						{%for cat_product in cat_products%}
+						{%for brand_product in brand_products%}
 						<div class="col-sm-4">
 							<div class="product-image-wrapper">
 								<div class="single-products">
 									<div class="productinfo text-center">
-										<img src="{{cat_product.image.url}}" alt="" />
-										<h2>${{cat_product.price}}</h2>
-										<p>{{cat_product.name}}</p>
+										<img src="{{brand_product.image.url}}" alt="" />
+										<h2>${{brand_product.price}}</h2>
+										<p>{{brand_product.name}}</p>
 										<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
 									</div>
 									<div class="product-overlay">
 										<div class="overlay-content">
-											<h2>${{cat_product.price}}</h2>
-											<p>{{cat_product.name}}</p>
+											<h2>${{brand_product.price}}</h2>
+											<p>{{brand_product.name}}</p>
 											<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
 										</div>
 									</div>
