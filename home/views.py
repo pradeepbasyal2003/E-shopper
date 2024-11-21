@@ -25,3 +25,17 @@ class HomeView(Base):
         self.views['recommended_2'] = self.product
         #two recommended are used because we have two sliding section that has recomended and duitai same aauxa eeuta matra recommended vayo vane
         return render(request,'index.html',self.views)
+
+class CategoryView(Base):
+#slug use vako xa tesaile slug ni pass gareko
+#slug is used for unique link only it has no use in database
+#database ma category ko id products table ma stored hunxa cause of foreign key which can be seen below
+    def get(self,request,slug):
+
+        cat_id = Category.objects.get(slug = slug).id # slug = slug le index.html ma category for loop bata chaleko xa tellai execute garxa
+        self.views['cat_products'] = Product.objects.filter(category_id = cat_id)
+        self.views['categories'] = Category.objects.all()
+        self.views['brands'] = Brand.objects.all()
+
+
+        return render(request,"category.html",self.views)
