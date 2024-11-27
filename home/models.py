@@ -49,6 +49,10 @@ class Product(models.Model):
     brand = models.ForeignKey(Brand,on_delete=models.CASCADE)
     stock = models.CharField(choices = STOCK , max_length=50)
     labels = models.CharField(choices = LABELS , max_length=50 , blank=True)
+    slug = models.CharField(max_length= 500 , blank = True)
 
     def __str__(self):
         return self.name
+
+
+

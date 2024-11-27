@@ -52,3 +52,11 @@ class BrandView(Base):
 
 
         return render(request,"brands.html",self.views)
+
+
+
+class ProductDetails(Base):
+
+    def get(self,request,slug):
+        self.views['product_details'] = Product.objects.filter(slug = slug)
+        return render(request,"product-details.html",self.views)
