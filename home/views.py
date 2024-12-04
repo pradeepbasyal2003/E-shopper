@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render , redirect
 from django.views import View
 from .models import *
 import random
@@ -59,4 +59,24 @@ class ProductDetails(Base):
 
     def get(self,request,slug):
         self.views['product_details'] = Product.objects.filter(slug = slug)
+        product_category = Product.objects.get(slug = slug).category_id
+        self.views['related_products'] = Product.objects.filter(category_id = product_category)
         return render(request,"product-details.html",self.views)
+
+
+class SearchView(Base):
+#for searching we made the logic below and in the template we make a form tag with method get.
+#then we need to make the action="nameofurl" in this case "search" kinaki we are searching from a different page that doesn't send the request to this page.
+    def get(self, request):
+        if request.method == "GET":
+            query = request.GET['query']
+            if query != "":
+                self.views['search_products'] = Product.objects.filter(name__icontains = query) #__icontains is used to make it case insensitive
+            else :
+                redirect('/')
+        self.views['brand_products'] = Product.objects.all()
+        self.views['categories'] = Category.objects.all()
+        self.views['brands'] = Brand.objects.all()
+
+        return render(request, "search.html", self.views)
+

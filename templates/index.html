@@ -266,6 +266,7 @@
 									<div class="col-sm-4">
 										<div class="product-image-wrapper">
 											<div class="single-products">
+											<a href="/product/{{item.slug}}">
 												<div class="productinfo text-center">
 													<img src="{{item.image.url}}" alt="" />
 													<h2>${{item.price}}</h2>
@@ -273,7 +274,7 @@
 													<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
 												</div>
 												<img src="{% static 'images/home/new.png' %}" class="new" alt="" />
-
+											</a>
 											</div>
 										</div>
 									</div>
@@ -281,18 +282,19 @@
 									{%endfor%}
 								</div>
 								<div class="item">
-									{%for item in recommended_2%}
+									{%for itemm in recommended_2%}
 									{%if forloop.counter <= 3%}
 									<div class="col-sm-4">
 										<div class="product-image-wrapper">
 											<div class="single-products">
+											<a href="/product/{{itemm.slug}}">
 												<div class="productinfo text-center">
-													<img src="{{item.image.url}}" alt="" />
-													<h2>${{item.price}}</h2>
-													<p>{{item.name}}</p>
+													<img src="{{itemm.image.url}}" alt="" />
+													<h2>${{itemm.price}}</h2>
+													<p>{{itemm.name}}</p>
 													<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
 												</div>
-												
+											</a>
 											</div>
 										</div>
 									</div>

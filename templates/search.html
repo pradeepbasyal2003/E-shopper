@@ -53,15 +53,15 @@
 				<div class="col-sm-9 padding-right">
 					<div class="features_items"><!--features_items-->
 						<h2 class="title text-center">Features Items</h2>
-						{%for cat_product in cat_products%}
+						{%for search_product in search_products%}
 						<div class="col-sm-4">
 							<div class="product-image-wrapper">
 								<div class="single-products">
-									<a href="/product/{{cat_product.slug}}">
+									<a href="/product/{{search_product.slug}}">
 									<div class="productinfo text-center">
-										<img src="{{cat_product.image.url}}" alt="" />
-										<h2>${{cat_product.price}}</h2>
-										<p>{{cat_product.name}}</p>
+										<img src="{{search_product.image.url}}" alt="" />
+										<h2>${{search_product.price}}</h2>
+										<p>{{search_product.name}}</p>
 										<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
 									</div>
 									</a>
@@ -90,11 +90,11 @@
 	</section>
 
 
-    <script src="js/jquery.js"></script>
-	<script src="js/price-range.js"></script>
-    <script src="js/jquery.scrollUp.min.js"></script>
-	<script src="js/bootstrap.min.js"></script>
-    <script src="js/jquery.prettyPhoto.js"></script>
-    <script src="js/main.js"></script>
+    <script src="{% static 'js/jquery.js' %}"></script>
+	<script src="{% static 'js/price-range.js' %}"></script>
+    <script src="{% static 'js/jquery.scrollUp.min.js' %}"></script>
+	<script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/jquery.prettyPhoto.js' %}"></script>
+    <script src="{% static 'js/main.js' %}"></script>
 
 {%endblock%}
