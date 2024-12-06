@@ -2,6 +2,8 @@ from django.shortcuts import render , redirect
 from django.views import View
 from .models import *
 import random
+from django.contrib import messages
+from django.contrib.auth.models import User
 # Create your views here.
 
 class Base(View):
@@ -72,11 +74,40 @@ class SearchView(Base):
             query = request.GET['query']
             if query != "":
                 self.views['search_products'] = Product.objects.filter(name__icontains = query) #__icontains is used to make it case insensitive
-            else :
-                redirect('/')
+            else:#just redirect('/') doesn't work we need to return it too.
+                return redirect('/')
         self.views['brand_products'] = Product.objects.all()
         self.views['categories'] = Category.objects.all()
         self.views['brands'] = Brand.objects.all()
 
         return render(request, "search.html", self.views)
 
+def signup(request):
+
+    if request.method == "POST":
+        username = request.POST["name"]
+        email = request.POST["email"]
+        password = request.POST["password"]
+        c_password = request.POST["c_password"]
+        if password == c_password:
+            if User.objects.filter(username = username).exists():
+                messages.error(request,"username not available")
+                return redirect("/signup")
+            elif User.objects.filter(email=email).exists():
+                messages.error(request, "email not available")
+                return redirect("/signup")
+
+            else:
+                data = User.objects.create_user(
+                    username = username,
+                    email = email,
+                    password = password,
+                )
+                data.save()
+                messages.success(request,"account created..")
+                return redirect("/")
+        else:
+            messages.error(request,"the passwords donot match")
+            return redirect("/signup")
+
+    return render(request,"signup.html")
