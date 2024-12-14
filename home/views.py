@@ -165,18 +165,20 @@ def subtract_item(request,slug):
         price = product.price
         discounted_price = product.discounted_price
         quantity = Cart.objects.get(username=username, slug=slug, checkout=False).quantity
-        if quantity >= 1:
+        if quantity == 1:
+            delete_item(request, slug)
+        else:
+
             quantity = Cart.objects.get(username=username, slug=slug, checkout=False).quantity - 1
-        else:
-            delete_item(request,slug)
-        if discounted_price > 0:
-            total = discounted_price * quantity
-        else:
-            total = price * quantity
-        Cart.objects.filter(username=username, slug=slug, checkout=False).update(
-            quantity=quantity,
-            total=total,
-        )
+            if discounted_price > 0:
+                total = discounted_price * quantity
+            else:
+                total = price * quantity
+            Cart.objects.filter(username=username, slug=slug, checkout=False).update(
+                quantity=quantity,
+                total=total,
+            )
+
     return redirect("/cart")
 
 def delete_item(request,slug):
