@@ -105,9 +105,20 @@ def signup(request):
                 )
                 data.save()
                 messages.success(request,"account created..")
-                return redirect("/")
+                return redirect("/account/login")
         else:
             messages.error(request,"the passwords donot match")
             return redirect("/signup")
 
     return render(request,"signup.html")
+
+
+class CartView(Base):
+    def get(self,request):
+        username = request.user.username
+        self.views['my_carts'] = Cart.objects.filter(username = username)
+        grand_total = 0
+        for items in self.views['my_carts']:
+            grand_total += items.total
+        self.views['grand_total'] = grand_total
+        return render(request,'cart.html',self.views)

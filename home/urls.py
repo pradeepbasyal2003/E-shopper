@@ -1,6 +1,6 @@
 from django.urls import path , include
 from .views import *
-
+from django.contrib.auth.views import LogoutView
 
 urlpatterns = [
     path('', HomeView.as_view(), name='home'),
@@ -8,5 +8,7 @@ urlpatterns = [
     path('brand/<slug>', BrandView.as_view(), name="brand"),
     path('product/<slug>', ProductDetails.as_view() , name='product'),
     path('search', SearchView.as_view() , name="search"),
-    path('signup' , signup , name="signup"),
+    path('signup', signup , name="signup"),
+    path('cart/', CartView.as_view() , name="cart"),
+
 ]
