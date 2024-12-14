@@ -10,5 +10,7 @@ urlpatterns = [
     path('search', SearchView.as_view() , name="search"),
     path('signup', signup , name="signup"),
     path('cart/', CartView.as_view() , name="cart"),
+    path('add_to_cart/<slug>', add_to_cart, name="add_to_cart"),
+    path('delete_item/<slug>', delete_item, name="delete_item"),
 
 ]
