@@ -67,3 +67,12 @@ class Cart(models.Model):
 
     def __str__(self):
         return self.username
+
+class ProductReview(models.Model):
+    username = models.CharField(max_length=300)
+    slug = models.CharField(max_length=300)
+    date = models.DateTimeField(auto_now_add=True)
+    star = models.IntegerField()
+    comment = models.TextField()
+    def __str__(self):
+        return self.username

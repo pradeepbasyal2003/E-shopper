@@ -669,6 +669,9 @@ ul.sub-menu {
   position: relative;
   z-index:3;
 }
+.stars{
+    display:inline;
+}
 
 .left-sidebar h2:after, h2.title:after{
 	content: " ";

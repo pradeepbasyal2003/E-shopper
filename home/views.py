@@ -63,6 +63,7 @@ class ProductDetails(Base):
         self.views['product_details'] = Product.objects.filter(slug = slug)
         product_category = Product.objects.get(slug = slug).category_id
         self.views['related_products'] = Product.objects.filter(category_id = product_category)
+        self.views['reviews'] = ProductReview.objects.filter(slug=slug)
         return render(request,"product-details.html",self.views)
 
 
@@ -186,3 +187,21 @@ def delete_item(request,slug):
     if Cart.objects.filter(username=username, slug=slug, checkout=False):
         Cart.objects.filter(username=username, slug=slug, checkout=False).delete()
     return redirect('/cart')
+
+def add_review(request , slug):
+    if Product.objects.get(slug = slug):
+        if request.method == "POST":
+            username = request.user.username
+            star = request.POST['star']
+            comment = request.POST['comment']
+
+        data = ProductReview.objects.create(
+            username = username,
+            slug = slug,
+            star = star,
+            comment = comment,
+        )
+        data.save()
+    else:
+        return redirect(f"product/{slug}")
+    return redirect(f'/product/{slug}')
