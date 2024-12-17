@@ -14,5 +14,6 @@ urlpatterns = [
     path('delete_item/<slug>', delete_item, name="delete_item"),
     path('subtract_item/<slug>', subtract_item, name="subtract_item"),
     path('add_review/<slug:slug>', add_review, name="add_review"),
+    path('logout/',  CustomLogoutView.as_view(), name='logout'),
 
 ]

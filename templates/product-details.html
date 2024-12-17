@@ -112,7 +112,7 @@
 								<li ><a href="#details" data-toggle="tab">Details</a></li>
 								<li><a href="#specification" data-toggle="tab">Specification</a></li>
 <!--								<li><a href="#tag" data-toggle="tab">Tag</a></li>-->
-								<li class="active"><a href="#reviews" data-toggle="tab">Reviews (5)</a></li>
+								<li class="active"><a href="#reviews" data-toggle="tab">Reviews ({{reviews|length}})</a></li>
 							</ul>
 						</div>
 						<div class="tab-content">
@@ -181,7 +181,7 @@
 								<div class="col-sm-12">
 									<ul>
 										<li><a href=""><i class="fa fa-user"></i>{{review.username}}</a></li>
-										<li><a href=""><i class="fa fa-clock-o"></i>12:41 PM</a></li>
+<!--										<li><a href=""><i class="fa fa-clock-o"></i>12:41 PM</a></li>-->
 										<li><a href=""><i class="fa fa-calendar-o"></i>{{review.date}}</a></li>
 										{%for i in 1|ljust:review.star%}
 										<i class="fa fa-star"></i>
@@ -189,15 +189,16 @@
 									</ul>
 									<p>{{review.comment}}</p>
 									<hr style="height:3px; color:black;">
-									<p><b>Write Your Review</b></p>
 									</div>
 								{%endfor%}
+								{%if User.is_authenticated%}
+								<p><b>Write Your Review</b></p>
 									<form method="POST" action="/add_review/{{product.slug}}">
 										{%csrf_token%}
-										<span>
-											<input type="text" placeholder="Your Name" name="username"/>
-											<input type="email" placeholder="Email Address" name="email"/>
-										</span>
+<!--										<span>-->
+<!--											<input type="text" placeholder="Your Name" name="username"/>-->
+<!--											<input type="email" placeholder="Email Address" name="email"/>-->
+<!--										</span>-->
 										<textarea name="comment" ></textarea>
 										<b>Rating: <select name="star" class="stars">
 											<option value="1">1</option>
@@ -213,6 +214,7 @@
 											Submit
 										</button>
 									</form>
+								{%endif%}
 
 							</div>
 							
@@ -227,6 +229,7 @@
 								<div class="item active">
 									{%for related_product in related_products%}
 									<div class="col-sm-4">
+										<a href="/product/{{related_product.slug}}">
 										<div class="product-image-wrapper">
 											<div class="single-products">
 												<div class="productinfo text-center">
@@ -237,6 +240,7 @@
 												</div>
 											</div>
 										</div>
+											</a>
 									</div>
 									{%endfor%}
 								</div>

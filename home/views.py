@@ -4,7 +4,16 @@ from .models import *
 import random
 from django.contrib import messages
 from django.contrib.auth.models import User
+from django.contrib.auth import logout
+from django.views import View
+
 # Create your views here.
+
+class CustomLogoutView(View):
+    def get(self, request):
+        logout(request)  # Logs out the user
+        return redirect('/')  # Redirect to home page or another URL
+
 
 class Base(View):
     views = {}
