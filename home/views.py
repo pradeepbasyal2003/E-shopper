@@ -125,12 +125,15 @@ def signup(request):
 
 class CartView(Base):
     def get(self,request):
-        username = request.user.username
-        self.views['my_carts'] = Cart.objects.filter(username = username)
-        grand_total = 0
-        for items in self.views['my_carts']:
-            grand_total += items.total
-        self.views['grand_total'] = grand_total
+        if request.user.is_authenticated:
+            username = request.user.username
+            self.views['my_carts'] = Cart.objects.filter(username = username)
+            grand_total = 0
+            for items in self.views['my_carts']:
+                grand_total += items.total
+            self.views['grand_total'] = grand_total
+        else:
+            return redirect('/account/login')
         return render(request,'cart.html',self.views)
 
 def add_to_cart(request,slug):
@@ -214,3 +217,34 @@ def add_review(request , slug):
     else:
         return redirect(f"product/{slug}")
     return redirect(f'/product/{slug}')
+
+class WishlistView(Base):
+    def get(self,request):
+        username = request.user.username
+        if request.user.is_authenticated:
+            self.views["my_wishlist"] = Wishlist.objects.filter(username = username)
+        else:
+            return redirect('/account/login')
+        return render(request, "wishlist.html" , self.views)
+
+def delete_from_wishlist(request,slug):
+    username = request.user.username
+    if Wishlist.objects.filter(username = username , slug=slug):
+        Wishlist.objects.filter(username=username, slug=slug).delete()
+    return redirect("/wishlist")
+
+def add_to_wishlist(request ,slug):
+    username = request.user.username
+    if request.user.is_authenticated:
+        if Wishlist.objects.filter(username = username , slug = slug):
+            return redirect('/wishlist')
+        else:
+            data = Wishlist.objects.create(
+                username = username,
+                slug = slug,
+                items = Product.objects.filter(slug = slug)[0],
+            )
+            data.save()
+            return redirect('/wishlist')
+    else:
+        return redirect('/account/login')

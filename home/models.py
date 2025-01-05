@@ -76,3 +76,11 @@ class ProductReview(models.Model):
     comment = models.TextField()
     def __str__(self):
         return self.username
+
+class Wishlist(models.Model):
+    username = models.CharField(max_length=300)
+    slug = models.CharField(max_length=300)
+    items = models.ForeignKey(Product, on_delete=models.CASCADE)
+    date = models.DateTimeField(auto_now_add=True)
+    def __str__(self):
+        return self.username

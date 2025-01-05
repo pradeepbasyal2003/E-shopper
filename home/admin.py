@@ -10,4 +10,5 @@ admin.site.register(Brand)
 admin.site.register(Product)
 admin.site.register(Cart)
 admin.site.register(ProductReview)
+admin.site.register(Wishlist)
 

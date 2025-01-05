@@ -120,7 +120,7 @@
 
 								<div class="choose">
 									<ul class="nav nav-pills nav-justified">
-										<li><a href="#"><i class="fa fa-plus-square"></i>Add to wishlist</a></li>
+										<li><a href="/add_to_wishlist/{{product.slug}}"><i class="fa fa-plus-square"></i>Add to wishlist</a></li>
 										<li><a href="#"><i class="fa fa-plus-square"></i>Add to compare</a></li>
 									</ul>
 								</div>
@@ -156,6 +156,8 @@
 												<h2>${{product.price}}</h2>
 												<p>{{product.name}}</p>
 												<a href="/add_to_cart/{{product.slug}}" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+													<a href="/add_to_wishlist/{{product.slug}}" class="btn btn-default add-to-cart"><i class="fa fa-star"></i>Add to wishlist</a>
+
 											</div>
 											</a>
 										</div>
@@ -180,6 +182,8 @@
 												<h2>${{product.price}}</h2>
 												<p>{{product.name}}</p>
 												<a href="/add_to_cart/{{product.slug}}" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+													<a href="/add_to_wishlist/{{product.slug}}" class="btn btn-default add-to-cart"><i class="fa fa-star"></i>Add to wishlist</a>
+
 											</div>
 											</a>
 										</div>
@@ -201,6 +205,8 @@
 												<h2>${{product.price}}</h2>
 												<p>{{product.name}}</p>
 												<a href="/add_to_cart/{{product.slug}}" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+													<a href="/add_to_wishlist/{{product.slug}}" class="btn btn-default add-to-cart"><i class="fa fa-star"></i>Add to wishlist</a>
+
 											</div>
 											</a>
 										</div>
@@ -223,6 +229,8 @@
 												<h2>${{product.price}}</h2>
 												<p>{{product.name}}</p>
 												<a href="/add_to_cart/{{product.slug}}" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+													<a href="/add_to_wishlist/{{product.slug}}" class="btn btn-default add-to-cart"><i class="fa fa-star"></i>Add to wishlist</a>
+
 											</div>
 											</a>
 										</div>
@@ -244,6 +252,8 @@
 												<h2>${{product.price}}</h2>
 												<p>{{product.name}}</p>
 												<a href="/add_to_cart/{{product.slug}}" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+													<a href="/add_to_wishlist/{{product.slug}}" class="btn btn-default add-to-cart"><i class="fa fa-star"></i>Add to wishlist</a>
+
 											</div>
 											</a>
 										</div>
@@ -272,6 +282,8 @@
 													<h2>${{item.price}}</h2>
 													<p>{{item.name}}</p>
 													<a href="/add_to_cart/{{item.slug}}" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+													<a href="/add_to_wishlist/{{item.slug}}" class="btn btn-default add-to-cart"><i class="fa fa-star"></i>Add to wishlist</a>
+
 												</div>
 												<img src="{% static 'images/home/new.png' %}" class="new" alt="" />
 											</a>
@@ -292,7 +304,8 @@
 													<img src="{{itemm.image.url}}" alt="" />
 													<h2>${{itemm.price}}</h2>
 													<p>{{itemm.name}}</p>
-													<a href="/add_to_cart/{{item.slug}}" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+													<a href="/add_to_cart/{{itemm.slug}}" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+													<a href="/add_to_wishlist/{{itemm.slug}}" class="btn btn-default add-to-cart"><i class="fa fa-star"></i>Add to wishlist</a>
 												</div>
 											</a>
 											</div>
