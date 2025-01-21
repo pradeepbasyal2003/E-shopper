@@ -18,5 +18,6 @@ urlpatterns = [
     path('wishlist/', WishlistView.as_view(), name="cart"),
     path('delete_from_wishlist/<slug>', delete_from_wishlist , name = "delete_from_wishlist"),
     path('add_to_wishlist/<slug>' , add_to_wishlist ,name="add_to_wishlist"),
+    path('checkout',CheckoutView.as_view() ,name="checkout"),
 
 ]

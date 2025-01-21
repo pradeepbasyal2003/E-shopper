@@ -248,3 +248,8 @@ def add_to_wishlist(request ,slug):
             return redirect('/wishlist')
     else:
         return redirect('/account/login')
+
+class CheckoutView(Base):
+
+    def get(self,request):
+        return render(request,"checkout.html")
