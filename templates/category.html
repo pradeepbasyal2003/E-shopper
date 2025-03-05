@@ -59,7 +59,7 @@
 								<div class="single-products">
 									<a href="/product/{{cat_product.slug}}">
 									<div class="productinfo text-center">
-										<img src="{{cat_product.image.url}}" alt="" />
+										<img src="{{cat_product.image.url}}" alt="" style="height:30vh;"/>
 										<h2>${{cat_product.price}}</h2>
 										<p>{{cat_product.name}}</p>
 										<a href="/add_to_cart/{{cat_product.slug}}" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
@@ -77,12 +77,7 @@
 						{%endfor%}
 
 
-						<ul class="pagination">
-							<li class="active"><a href="">1</a></li>
-							<li><a href="">2</a></li>
-							<li><a href="">3</a></li>
-							<li><a href="">&raquo;</a></li>
-						</ul>
+
 					</div><!--features_items-->
 				</div>
 			</div>
@@ -90,11 +85,11 @@
 	</section>
 
 
-    <script src="js/jquery.js"></script>
-	<script src="js/price-range.js"></script>
-    <script src="js/jquery.scrollUp.min.js"></script>
-	<script src="js/bootstrap.min.js"></script>
-    <script src="js/jquery.prettyPhoto.js"></script>
-    <script src="js/main.js"></script>
+    <script src="{%static 'js/jquery.js'%}"></script>
+	<script src="{%static 'js/price-range.js' %}"></script>
+    <script src="{%static 'js/jquery.scrollUp.min.js' %}"></script>
+	<script src="{%static 'js/bootstrap.min.js' %}"></script>
+    <script src="{%static 'js/jquery.prettyPhoto.js' %}"></script>
+    <script src="{%static 'js/main.js' %}"></script>
 
 {%endblock%}

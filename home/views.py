@@ -26,7 +26,7 @@ class HomeView(Base):
         self.views['brands'] = Brand.objects.all()
         self.views['sliders'] = Slider.objects.all()
         self.views['ads'] = Ad.objects.all()
-        self.views['products'] = Product.objects.all()
+        self.views['products'] = Product.objects.all().order_by("-published_date")
 
         # here we store the products as list because we cant assign the whole object to an variable view garna lai yesto garna praxa
         self.product = list(Product.objects.filter(labels = "new"))
@@ -60,7 +60,7 @@ class BrandView(Base):
         self.views['brand_products'] = Product.objects.filter(brand_id = brand_id)
         self.views['categories'] = Category.objects.all()
         self.views['brands'] = Brand.objects.all()
-
+        self.views['count'] = Product.objects.filter(brand_id=brand_id).count()
 
         return render(request,"brands.html",self.views)
 
@@ -81,9 +81,16 @@ class SearchView(Base):
 #then we need to make the action="nameofurl" in this case "search" kinaki we are searching from a different page that doesn't send the request to this page.
     def get(self, request):
         if request.method == "GET":
-            query = request.GET['query']
+            query = request.GET.get("query","")
+            filter_val = request.GET.get("filter_val","0,600")
+            if filter_val != "":
+                price_min, price_max = map(int,filter_val.split(','))
+            else:
+                price_min, price_max = map(int,["0", "600"])
+
+            self.views["query"] = query
             if query != "":
-                self.views['search_products'] = Product.objects.filter(name__icontains = query) #__icontains is used to make it case insensitive
+                self.views['search_products'] = Product.objects.filter(name__icontains = query,price__gte=price_min, price__lte=price_max) #__icontains is used to make it case insensitive
             else:#just redirect('/') doesn't work we need to return it too.
                 return redirect('/')
         self.views['brand_products'] = Product.objects.all()
@@ -127,7 +134,7 @@ class CartView(Base):
     def get(self,request):
         if request.user.is_authenticated:
             username = request.user.username
-            self.views['my_carts'] = Cart.objects.filter(username = username)
+            self.views['my_carts'] = Cart.objects.filter(username = username,checkout=False)
             grand_total = 0
             for items in self.views['my_carts']:
                 grand_total += items.total
@@ -250,6 +257,33 @@ def add_to_wishlist(request ,slug):
         return redirect('/account/login')
 
 class CheckoutView(Base):
-
     def get(self,request):
-        return render(request,"checkout.html")
+        username = request.user.username
+        if request.user.is_authenticated:
+            self.views["cart_items"] = Cart.objects.filter(username=username,checkout=False)
+            grand_total = 0
+            for items in self.views['cart_items']:
+                grand_total += items.total
+            self.views['grand_total'] = grand_total
+
+        return render(request,"checkout.html",self.views)
+
+def place_order(request):
+    username = request.user.username
+    cart_items = Cart.objects.filter(username=username)
+    if request.method == "POST":
+        phone_number = request.POST.get("phone_number")
+        email = request.POST.get("email")
+        address = request.POST.get("message")
+        for item in cart_items:
+            Order.objects.create(
+                phone_number = phone_number,
+                email = email,
+                address = address,
+                username = username,
+                item = Product.objects.filter(slug = item.slug)[0],
+            ).save()
+            Cart.objects.filter(slug=item.slug,username = username).update(
+                checkout=True,
+            )
+        return redirect("/cart")
